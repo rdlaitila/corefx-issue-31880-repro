@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Open devtools to view websocket data.</h1>
+    <script>
+        var socket = new WebSocket("wss://localhost:44361/websocket");
+
+        socket.onopen = function (event) {
+            console.log(event);
+            socket.send(new Date().toString());
+        };
+
+        socket.onmessage = function (event) {
+            console.log(event);
+            setTimeout(
+                () => socket.send(new Date().toString()),
+                1000
+            );
+        }
+
+        socket.onerror = function (error) {
+            console.log(error);
+        }
+
+        socket.onclose = function (event) {
+            console.log(event);
+        };
+    </script>
+</body>
+</html>
